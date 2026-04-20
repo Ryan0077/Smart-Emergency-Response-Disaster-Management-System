@@ -343,7 +343,7 @@ HTML = '''
 
         <div class="grid">
             <div class="card section">
-                <h2>Report New Incident</h2>
+                <h2>Report New Incidenttt</h2>
                 <form method="POST" action="/add_incident">
                     <label>Incident Type</label>
                     <select name="type" required>
