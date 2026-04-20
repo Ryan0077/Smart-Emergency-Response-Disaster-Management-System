@@ -557,7 +557,7 @@ HTML = '''
         <div class="grid">
             <div class="card section">
                 <div class="panel-title">
-                    <h2>Report new incident</h2>
+                    <h2>Report New Incident</h2>
                     <span class="subtle">Enter details below</span>
                 </div>
                 <form method="POST" action="/add_incident">
