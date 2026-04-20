@@ -219,95 +219,308 @@ HTML = '''
     <title>Smart Emergency Response & Disaster Management System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            background: #f4f7fb;
-            color: #222;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(239, 83, 80, 0.10), transparent 28%),
+                radial-gradient(circle at top right, rgba(211, 47, 47, 0.08), transparent 24%),
+                linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+            color: #1f2937;
         }
+
         header {
-            background: linear-gradient(90deg, #c62828, #ef5350);
+            background: linear-gradient(135deg, #991b1b, #dc2626, #ef4444);
             color: white;
-            padding: 20px;
+            padding: 34px 20px 28px;
             text-align: center;
+            box-shadow: 0 8px 24px rgba(153, 27, 27, 0.25);
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            letter-spacing: 0.3px;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 0.98rem;
+            opacity: 0.95;
+        }
+
         .container {
             width: 92%;
-            max-width: 1200px;
-            margin: 20px auto;
+            max-width: 1280px;
+            margin: 28px auto 36px;
         }
+
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 22px;
         }
+
         .card {
-            background: white;
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            border-radius: 20px;
+            padding: 22px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 34px rgba(15, 23, 42, 0.12);
+        }
+
+        .section {
+            margin-bottom: 22px;
+        }
+
+        h2 {
+            margin: 0 0 16px;
+            font-size: 1.35rem;
+            color: #111827;
+        }
+
+        h3 {
+            margin: 0 0 8px;
+            font-size: 1.05rem;
+            color: #374151;
+        }
+
+        .stat-card {
+            position: relative;
+            padding: 22px;
+            border-radius: 20px;
+            color: #111827;
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+        }
+
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 8px;
+            color: #b91c1c;
+        }
+
+        .stat-card::after {
+            content: "";
+            position: absolute;
+            right: -22px;
+            top: -22px;
+            width: 90px;
+            height: 90px;
+            background: rgba(239, 68, 68, 0.08);
+            border-radius: 50%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.95rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 14px;
+            margin: 0 0 15px 0;
             border-radius: 12px;
-            padding: 18px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #d1d5db;
+            background: #f9fafb;
+            font-size: 0.95rem;
+            color: #111827;
+            outline: none;
+            transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
         }
-        h2, h3 {
-            margin-top: 0;
+
+        input:focus, select:focus {
+            border-color: #ef4444;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12);
         }
+
+        button {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            font-size: 0.96rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.18s ease, opacity 0.18s ease, box-shadow 0.18s ease;
+            box-shadow: 0 8px 18px rgba(220, 38, 38, 0.22);
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            opacity: 0.96;
+        }
+
+        button:active {
+            transform: scale(0.99);
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
+            margin-top: 8px;
+            overflow: hidden;
+            border-radius: 16px;
         }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 10px;
+
+        th {
+            background: #fef2f2;
+            color: #991b1b;
+            font-weight: 700;
+            font-size: 0.92rem;
+            padding: 14px 12px;
+            border-bottom: 1px solid #f1f5f9;
             text-align: left;
         }
-        th {
-            background: #f0f3f7;
+
+        td {
+            padding: 13px 12px;
+            border-bottom: 1px solid #eef2f7;
+            font-size: 0.94rem;
+            vertical-align: top;
         }
-        input, select, button {
-            width: 100%;
-            padding: 10px;
-            margin: 7px 0 12px 0;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
+
+        tr:nth-child(even) td {
+            background: #fcfcfd;
         }
-        button {
-            background: #d32f2f;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
+
+        tr:hover td {
+            background: #fff7f7;
         }
-        button:hover {
-            background: #b71c1c;
-        }
-        .section {
-            margin-bottom: 20px;
-        }
+
         .tag {
             display: inline-block;
-            padding: 5px 10px;
-            border-radius: 20px;
-            background: #ffe5e5;
-            color: #b71c1c;
-            font-size: 12px;
-            margin-right: 6px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            color: #991b1b;
+            font-size: 0.78rem;
+            font-weight: 700;
+            margin-right: 8px;
+            margin-bottom: 8px;
         }
+
         .success {
-            background: #e8f5e9;
-            color: #2e7d32;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            padding: 14px 16px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.08);
         }
-        .path {
-            background: #eef4ff;
-            padding: 8px;
-            border-radius: 8px;
-            margin-top: 6px;
+
+        .mini-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mini-list li {
+            padding: 10px 12px;
+            margin-bottom: 10px;
+            background: #f9fafb;
+            border: 1px solid #edf2f7;
+            border-radius: 12px;
+        }
+
+        .concept-line {
+            margin: 12px 0;
+            line-height: 1.6;
+        }
+
+        .badge {
+            display: inline-block;
+            min-width: 84px;
+            text-align: center;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .low { background: #16a34a; }
+        .medium { background: #f59e0b; }
+        .high { background: #ea580c; }
+        .critical { background: #dc2626; }
+
+        .status-pill {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .panel-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .subtle {
+            color: #6b7280;
+            font-size: 0.92rem;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                width: 94%;
+                margin-top: 20px;
+            }
+
+            .card {
+                padding: 18px;
+                border-radius: 18px;
+            }
+
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.88rem;
+            }
+
+            .stat-card .stat-value {
+                font-size: 1.7rem;
+            }
         }
     </style>
 </head>
@@ -323,27 +536,30 @@ HTML = '''
         {% endif %}
 
         <div class="grid">
-            <div class="card">
+            <div class="card stat-card">
                 <h3>Active Incidents</h3>
-                <p><strong>{{ dashboard.active_incidents|length }}</strong></p>
+                <div class="stat-value">{{ dashboard.active_incidents|length }}</div>
             </div>
-            <div class="card">
+            <div class="card stat-card">
                 <h3>Total Victims</h3>
-                <p><strong>{{ dashboard.total_victims }}</strong></p>
+                <div class="stat-value">{{ dashboard.total_victims }}</div>
             </div>
-            <div class="card">
+            <div class="card stat-card">
                 <h3>Available Ambulances</h3>
-                <p><strong>{{ dashboard.available_ambulance_count }}</strong></p>
+                <div class="stat-value">{{ dashboard.available_ambulance_count }}</div>
             </div>
-            <div class="card">
+            <div class="card stat-card">
                 <h3>Free Shelter Capacity</h3>
-                <p><strong>{{ dashboard.total_free_shelter }}</strong></p>
+                <div class="stat-value">{{ dashboard.total_free_shelter }}</div>
             </div>
         </div>
 
         <div class="grid">
             <div class="card section">
-                <h2>Report New Incident</h2>
+                <div class="panel-title">
+                    <h2>Report New Incident</h2>
+                    <span class="subtle">Enter details below</span>
+                </div>
                 <form method="POST" action="/add_incident">
                     <label>Incident Type</label>
                     <select name="type" required>
@@ -376,17 +592,23 @@ HTML = '''
             </div>
 
             <div class="card section">
-                <h2>System Concepts Used</h2>
-                <p><span class="tag">Graphs</span> Shortest path for routes using Dijkstra's Algorithm</p>
-                <p><span class="tag">Sets</span> Track allocated resources without duplicates</p>
-                <p><span class="tag">Relations</span> Victim-to-shelter mapping</p>
-                <p><span class="tag">Logic</span> Priority score using severity + victims</p>
-                <p><span class="tag">Functions</span> Modular allocation and search functions</p>
+                <div class="panel-title">
+                    <h2>System Concepts Used</h2>
+                    <span class="subtle">Project features</span>
+                </div>
+                <p class="concept-line"><span class="tag">Graphs</span>Shortest path for routes using Dijkstra's Algorithm</p>
+                <p class="concept-line"><span class="tag">Sets</span>Track allocated resources without duplicates</p>
+                <p class="concept-line"><span class="tag">Relations</span>Victim-to-shelter mapping</p>
+                <p class="concept-line"><span class="tag">Logic</span>Priority score using severity + victims</p>
+                <p class="concept-line"><span class="tag">Functions</span>Modular allocation and search functions</p>
             </div>
         </div>
 
         <div class="card section">
-            <h2>Incident Priority Queue</h2>
+            <div class="panel-title">
+                <h2>Incident Priority Queue</h2>
+                <span class="subtle">Highest priority first</span>
+            </div>
             <table>
                 <tr>
                     <th>ID</th>
@@ -402,7 +624,11 @@ HTML = '''
                     <td>{{ incident.id }}</td>
                     <td>{{ incident.type }}</td>
                     <td>{{ incident.location }}</td>
-                    <td>{{ incident.severity }}</td>
+                    <td>
+                        <span class="badge {{ incident.severity|lower }}">
+                            {{ incident.severity }}
+                        </span>
+                    </td>
                     <td>{{ incident.victims }}</td>
                     <td>{{ priority_score(incident.severity, incident.victims) }}</td>
                     <td>
@@ -416,7 +642,10 @@ HTML = '''
         </div>
 
         <div class="card section">
-            <h2>Current Incidents</h2>
+            <div class="panel-title">
+                <h2>Current Incidents</h2>
+                <span class="subtle">Live system records</span>
+            </div>
             <table>
                 <tr>
                     <th>ID</th>
@@ -432,9 +661,13 @@ HTML = '''
                     <td>{{ incident.id }}</td>
                     <td>{{ incident.type }}</td>
                     <td>{{ incident.location }}</td>
-                    <td>{{ incident.severity }}</td>
+                    <td>
+                        <span class="badge {{ incident.severity|lower }}">
+                            {{ incident.severity }}
+                        </span>
+                    </td>
                     <td>{{ incident.victims }}</td>
-                    <td>{{ incident.status }}</td>
+                    <td><span class="status-pill">{{ incident.status }}</span></td>
                     <td>{{ incident.reported_at }}</td>
                 </tr>
                 {% endfor %}
@@ -443,7 +676,10 @@ HTML = '''
 
         <div class="grid">
             <div class="card">
-                <h2>Hospitals</h2>
+                <div class="panel-title">
+                    <h2>Hospitals</h2>
+                    <span class="subtle">Medical support</span>
+                </div>
                 <table>
                     <tr><th>Name</th><th>Location</th><th>Beds</th></tr>
                     {% for h in hospitals %}
@@ -453,11 +689,22 @@ HTML = '''
             </div>
 
             <div class="card">
-                <h2>Ambulances</h2>
+                <div class="panel-title">
+                    <h2>Ambulances</h2>
+                    <span class="subtle">Transport resources</span>
+                </div>
                 <table>
                     <tr><th>ID</th><th>Location</th><th>Available</th></tr>
                     {% for a in ambulances %}
-                    <tr><td>{{ a.id }}</td><td>{{ a.location }}</td><td>{{ a.available }}</td></tr>
+                    <tr>
+                        <td>{{ a.id }}</td>
+                        <td>{{ a.location }}</td>
+                        <td>
+                            <span class="status-pill">
+                                {{ a.available }}
+                            </span>
+                        </td>
+                    </tr>
                     {% endfor %}
                 </table>
             </div>
@@ -465,7 +712,10 @@ HTML = '''
 
         <div class="grid">
             <div class="card">
-                <h2>Shelters</h2>
+                <div class="panel-title">
+                    <h2>Shelters</h2>
+                    <span class="subtle">Safe accommodation</span>
+                </div>
                 <table>
                     <tr><th>Name</th><th>Location</th><th>Capacity</th><th>Occupied</th></tr>
                     {% for s in shelters %}
@@ -475,26 +725,32 @@ HTML = '''
             </div>
 
             <div class="card">
-                <h2>Allocated Resources Set</h2>
+                <div class="panel-title">
+                    <h2>Allocated Resources Set</h2>
+                    <span class="subtle">Unique resources in use</span>
+                </div>
                 {% if allocated_resources %}
-                    <ul>
+                    <ul class="mini-list">
                         {% for item in allocated_resources %}
                         <li>{{ item }}</li>
                         {% endfor %}
                     </ul>
                 {% else %}
-                    <p>No resources allocated yet.</p>
+                    <p class="subtle">No resources allocated yet.</p>
                 {% endif %}
 
-                <h2>Victim ↔ Shelter Relation</h2>
+                <div class="panel-title" style="margin-top:20px;">
+                    <h2>Victim ↔ Shelter Relation</h2>
+                    <span class="subtle">Mapped victims</span>
+                </div>
                 {% if victim_shelter_relation %}
-                    <ul>
+                    <ul class="mini-list">
                         {% for victim, shelter in victim_shelter_relation.items() %}
                         <li>{{ victim }} → {{ shelter }}</li>
                         {% endfor %}
                     </ul>
                 {% else %}
-                    <p>No victim-shelter mapping yet.</p>
+                    <p class="subtle">No victim-shelter mapping yet.</p>
                 {% endif %}
             </div>
         </div>
